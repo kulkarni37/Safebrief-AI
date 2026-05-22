@@ -1,0 +1,5 @@
+{
+    "logistic_regression": 97.53,
+    "random_forest": 98.45,
+    "decision_tree": 97.01
+}
