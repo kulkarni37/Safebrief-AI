@@ -205,7 +205,7 @@ if uploaded_file and st.session_state.generated:
         "LOW": "green"
     }
 
-    # TOP SECTION
+        # TOP SECTION
     col1, col2 = st.columns(2)
 
     # LEFT SIDE
@@ -217,22 +217,55 @@ if uploaded_file and st.session_state.generated:
         )
 
         sections = summary.split("ROOT CAUSE:")
-
         main_summary = sections[0]
-
         rest = sections[1] if len(sections) > 1 else ""
 
         hazards_split = rest.split("HAZARDS:")
-
         root_cause = hazards_split[0]
 
         hazards_rest = hazards_split[1] if len(hazards_split) > 1 else ""
 
         recommendation_split = hazards_rest.split("RECOMMENDATIONS:")
-
         hazards = recommendation_split[0]
 
-        recommendations = recommendation_split[1] if len(recommendation_split) > 1 else ""
+        recommendations = (
+            recommendation_split[1]
+            if len(recommendation_split) > 1
+            else ""
+        )
+
+        # CLEAN FORMATTING
+        main_summary = main_summary.replace(
+            "SUMMARY:",
+            ""
+        ).replace(
+            "•",
+            "\n\n✅ "
+        )
+
+        root_cause = root_cause.replace(
+            "ROOT CAUSE:",
+            ""
+        ).replace(
+            "•",
+            "\n\n🎯 "
+        )
+
+        hazards = hazards.replace(
+            "HAZARDS:",
+            ""
+        ).replace(
+            "•",
+            "\n\n⚠️ "
+        )
+
+        recommendations = recommendations.replace(
+            "RECOMMENDATIONS:",
+            ""
+        ).replace(
+            "•",
+            "\n\n✔️ "
+        )
 
         st.markdown("### Summary")
         st.info(main_summary)
@@ -248,7 +281,6 @@ if uploaded_file and st.session_state.generated:
 
     # RIGHT SIDE
     with col2:
-
         st.markdown("""
         <div style="
             background: linear-gradient(135deg, #111827, #1e293b);
